@@ -15,3 +15,41 @@
  * - Trig functions
  * - 
 */
+
+type State = {
+	display: string | null,
+	operation: "add" | "subtract" | "multiply" | "divide" | null,
+	memory: number | null
+}
+
+// init globals
+const displayEl = document.querySelector<HTMLElement>('#display')
+if (!displayEl) {
+	throw new Error("Oopsie")
+}
+
+// init state
+let state: State = {display: null, operation: null, memory: null}
+
+const refreshDisplay = () => {
+	// 1. read display state
+	// 2. write to display element
+	if (!state.display) {
+		displayEl.innerText = "Calculate me baby"
+	} else {
+		displayEl.innerText = state.display
+	}
+}
+
+const addChar = (char: string) => {
+	const currentDisplay = state.display
+	if (currentDisplay) {
+		state = {...state, display: currentDisplay + char}
+	} else {
+		state = {...state, display: char}
+	}
+	console.log(state)
+	refreshDisplay()
+}
+
+refreshDisplay()
