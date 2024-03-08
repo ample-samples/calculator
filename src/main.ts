@@ -22,7 +22,7 @@ type State = {
   display: string | null;
   operation: Operator;
   memory: number | null;
-	lastAns: number | null;
+  lastInput: number | null;
 }
 
 // init globals
@@ -30,7 +30,7 @@ const displayEl = document.querySelector<HTMLElement>('#display')
 if (!displayEl) throw new Error("Oopsie")
 
 // init state
-let state: State = { display: null, operation: null, memory: null, lastAns: null }
+let state: State = { display: null, operation: null, memory: null, lastInput: null }
 
 const refreshDisplay = () => {
   // 1. read display state
@@ -66,6 +66,7 @@ const addChar = (char: string) => {
   } else {
     state = { ...state, display: char }
   }
+	state.lastInput = Number(state.display)
   refreshDisplay()
 }
 
@@ -80,38 +81,60 @@ const backspace = () => {
 
 const addOperator = (operator: Operator) => {
   state.operation = operator
-	state.memory = Number(state.display)
-	state.display = null
+  state.memory = Number(state.display)
+  state.lastInput = Number(state.display)
+  state.display = null
 }
 
 const evaluate = () => {
-	if (!state.memory) return null;
-	if (state.display === null) {
-		state.display = state.memory.toString()
+  if (!state.memory) return null;
+  if (state.display !== null) {
+    switch (state.operation) {
+      case "divide":
+        state = { ...state, display: (state.memory / Number(state.display)).toString() }
+        break;
+
+      case "multiply":
+        state = { ...state, display: (state.memory * Number(state.display)).toString() }
+        break;
+
+      case "subtract":
+        state = { ...state, display: (state.memory - Number(state.display)).toString() }
+        break;
+
+      case "add":
+        state = { ...state, display: (state.memory + Number(state.display)).toString() }
+        break;
+
+      default:
+        break;
+    }
+  } else if (state.lastInput) {
+    switch (state.operation) {
+      case "divide":
+        state = { ...state, display: (state.memory / state.lastInput).toString() }
+        break;
+
+      case "multiply":
+        state = { ...state, display: (state.memory * state.lastInput).toString() }
+        break;
+
+      case "subtract":
+        state = { ...state, display: (state.memory - state.lastInput).toString() }
+        break;
+
+      case "add":
+        state = { ...state, display: (state.memory + state.lastInput).toString() }
+        break;
+
+      default:
+        break;
+    }
+
 	}
-  switch (state.operation) {
-    case "divide":
-			state = { ...state, display: (state.memory / Number(state.display)).toString() }
-      break;
-
-    case "multiply":
-			state = { ...state, display: (state.memory * Number(state.display)).toString() }
-      break;
-
-    case "subtract":
-			state = { ...state, display: (state.memory - Number(state.display)).toString() }
-      break;
-
-    case "add":
-			state = { ...state, display: (state.memory + Number(state.display)).toString() }
-      break;
-
-    default:
-      break;
-  }
-	state.memory = Number(state.display)
-	refreshDisplay()
-	state.display = null
+  state.memory = Number(state.display)
+  refreshDisplay()
+  state.display = null
 }
 
 
@@ -135,6 +158,7 @@ const button_divide = document.querySelector<HTMLButtonElement>(".calculator__bu
 const button_clear = document.querySelector<HTMLButtonElement>(".calculator__button--button-clear")
 const button_backspace = document.querySelector<HTMLButtonElement>(".calculator__button--button-backspace")
 const button_evaluate = document.querySelector<HTMLButtonElement>(".calculator__button--button-evaluate")
+const button_debug = document.querySelector<HTMLButtonElement>(".calculator__button--button-debug")
 
 // validate buttons exist
 if (!button_1 || !button_2 || !button_3 || !button_4 || !button_5
@@ -166,5 +190,6 @@ button_period.addEventListener("click", () => { addChar(".") })
 button_clear.addEventListener("click", clear)
 button_backspace.addEventListener("click", backspace)
 button_evaluate.addEventListener("click", evaluate)
+button_debug?.addEventListener("click", () => { console.log(state) })
 
 refreshDisplay()
