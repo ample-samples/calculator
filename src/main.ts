@@ -76,6 +76,10 @@ const backspace = () => {
 }
 
 const addOperator = (operator: Operator) => {
+	state.operation = operator
+}
+
+const evaluate = () => {
 
 }
 
@@ -123,8 +127,13 @@ button_7.addEventListener("click", () => { addChar("7") })
 button_8.addEventListener("click", () => { addChar("8") })
 button_9.addEventListener("click", () => { addChar("9") })
 button_0.addEventListener("click", () => { addChar("0") })
+button_add.addEventListener("click", () => { addOperator("add") })
+button_subtract.addEventListener("click", () => { addOperator("subtract") })
+button_multiply.addEventListener("click", () => { addOperator("multiply") })
+button_divide.addEventListener("click", () => { addOperator("divide") })
 button_period.addEventListener("click", () => { addChar(".") })
 button_clear.addEventListener("click", clear)
 button_backspace.addEventListener("click", backspace)
+button_evaluate.addEventListener("click", evaluate)
 
 refreshDisplay()
