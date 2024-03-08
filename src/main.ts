@@ -80,10 +80,12 @@ const backspace = () => {
 }
 
 const addOperator = (operator: Operator) => {
-  state.operation = operator
-  state.memory = Number(state.display)
-  state.lastInput = Number(state.display)
-  state.display = null
+	let { operation, display, memory, lastInput } = state
+  operation = operator
+  memory = Number(state.display)
+  lastInput = Number(state.display)
+  display = null
+	state = { operation, display, memory, lastInput }
 }
 
 const evaluate = () => {
@@ -130,14 +132,11 @@ const evaluate = () => {
       default:
         break;
     }
-
 	}
   state.memory = Number(state.display)
   refreshDisplay()
   state.display = null
 }
-
-
 
 // getting buttons
 const button_1 = document.querySelector<HTMLButtonElement>(".calculator__button--button-1")
