@@ -60,13 +60,24 @@ const clear = () => {
 }
 
 const addChar = (char: string) => {
-  const currentDisplay = state.display
-  if (currentDisplay) {
-    state = { ...state, display: currentDisplay + char }
+  if (/[0-9]|\./.test(char)) {
+    const currentDisplay = state.display
+    if (currentDisplay) {
+      state = { ...state, display: currentDisplay + char }
+    } else {
+      state = { ...state, display: char }
+    }
+    state.lastInput = Number(state.display)
   } else {
-    state = { ...state, display: char }
+    switch (char) {
+      case "π":
+        state = { ...state, display: Math.PI.toString() }
+        break;
+
+      default:
+        break;
+    }
   }
-  state.lastInput = Number(state.display)
   refreshDisplay()
 }
 
@@ -149,16 +160,24 @@ const button_power = document.querySelector<HTMLButtonElement>(".calculator__but
 const button_clear = document.querySelector<HTMLButtonElement>(".calculator__button--button-clear")
 const button_backspace = document.querySelector<HTMLButtonElement>(".calculator__button--button-backspace")
 const button_evaluate = document.querySelector<HTMLButtonElement>(".calculator__button--button-evaluate")
+const button_pi = document.querySelector<HTMLButtonElement>(".calculator__button--button-pi")
+const button_log = document.querySelector<HTMLButtonElement>(".calculator__button--button-log")
+const button_cos = document.querySelector<HTMLButtonElement>(".calculator__button--button-cos")
+const button_sin = document.querySelector<HTMLButtonElement>(".calculator__button--button-sin")
+
+
 const button_debug = document.querySelector<HTMLButtonElement>(".debug")
 
 // validate buttons exist
 if (!button_1 || !button_2 || !button_3 || !button_4 || !button_5
-  || !button_6 || !button_7 || !button_8 || !button_9 || !button_0) {
+  || !button_6 || !button_7 || !button_8 || !button_9 || !button_0 
+  || !button_pi) {
   throw new Error("Oopsie, a number button wasn't found")
 }
 
 if (!button_period || !button_add || !button_subtract || !button_multiply
-  || !button_divide || !button_power || !button_clear || !button_backspace || !button_evaluate) {
+  || !button_divide || !button_power || !button_clear || !button_backspace 
+  || !button_evaluate || !button_log || !button_cos || !button_sin) {
   throw new Error("Oopsie, an operator button wasn't found")
 }
 
@@ -173,6 +192,7 @@ button_7.addEventListener("click", () => { addChar("7") })
 button_8.addEventListener("click", () => { addChar("8") })
 button_9.addEventListener("click", () => { addChar("9") })
 button_0.addEventListener("click", () => { addChar("0") })
+button_pi.addEventListener("click", () => { addChar("π") })
 button_add.addEventListener("click", () => { addOperator("add") })
 button_subtract.addEventListener("click", () => { addOperator("subtract") })
 button_multiply.addEventListener("click", () => { addOperator("multiply") })
