@@ -82,8 +82,8 @@ const backspace = () => {
 const addOperator = (operator: Operator) => {
   let { operation, display, memory, lastInput } = state
   operation = operator
-  memory = Number(state.display)
-  lastInput = Number(state.display)
+  memory = Number(state.display ?? state.memory)
+  lastInput = Number(state.display ?? state.lastInput)
   display = null
   state = { ...state, operation, display, memory, lastInput }
 }
@@ -130,7 +130,6 @@ const evaluate = () => {
 }
 
 const changeTheme = (theme: string) => {
-
   const calculator = document.querySelector<HTMLDivElement>(".calculator")
   if (!calculator) throw new Error("Calculator not found")
   switch (theme) {
