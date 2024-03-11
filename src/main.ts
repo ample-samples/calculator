@@ -90,56 +90,38 @@ const addOperator = (operator: Operator) => {
 
 const evaluate = () => {
   if (!state.memory) return null;
+  const firstNumber: number = state.memory;
+  let secondNumber: number;
   if (state.display !== null) {
-    switch (state.operation) {
-      case "divide":
-        state = { ...state, display: (state.memory / Number(state.display)).toString() }
-        break;
+    secondNumber = Number(state.display)
+  } else if (state.lastInput !== null){
+    secondNumber = state.lastInput
+  } else {
+    return
+  }
+  switch (state.operation) {
+    case "divide":
+      state = { ...state, display: (firstNumber / secondNumber).toString() }
+      break;
 
-      case "multiply":
-        state = { ...state, display: (state.memory * Number(state.display)).toString() }
-        break;
+    case "multiply":
+      state = { ...state, display: (firstNumber * secondNumber).toString() }
+      break;
 
-      case "subtract":
-        state = { ...state, display: (state.memory - Number(state.display)).toString() }
-        break;
+    case "subtract":
+      state = { ...state, display: (firstNumber - secondNumber).toString() }
+      break;
 
-      case "add":
-        state = { ...state, display: (state.memory + Number(state.display)).toString() }
-        break;
+    case "add":
+      state = { ...state, display: (firstNumber + secondNumber).toString() }
+      break;
 
-      case "power":
-        state = { ...state, display: (state.memory ** Number(state.display)).toString() }
-        break;
+    case "power":
+      state = { ...state, display: (firstNumber ** secondNumber).toString() }
+      break;
 
-      default:
-        break;
-    }
-  } else if (state.lastInput) {
-    switch (state.operation) {
-      case "divide":
-        state = { ...state, display: (state.memory / state.lastInput).toString() }
-        break;
-
-      case "multiply":
-        state = { ...state, display: (state.memory * state.lastInput).toString() }
-        break;
-
-      case "subtract":
-        state = { ...state, display: (state.memory - state.lastInput).toString() }
-        break;
-
-      case "add":
-        state = { ...state, display: (state.memory + state.lastInput).toString() }
-        break;
-
-      case "power":
-        state = { ...state, display: (state.memory ** state.lastInput).toString() }
-        break;
-
-      default:
-        break;
-    }
+    default:
+      break;
   }
   state.memory = Number(state.display)
   refreshDisplay()
