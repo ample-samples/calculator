@@ -24,6 +24,7 @@ type State = {
   operation: Operator;
   memory: number | null;
   lastInput: number | null;
+  theme: "dark" | "light" | null
 }
 
 // init globals
@@ -31,7 +32,7 @@ const displayEl = document.querySelector<HTMLElement>('#display')
 if (!displayEl) throw new Error("Oopsie")
 
 // init state
-let state: State = { display: null, operation: null, memory: null, lastInput: null }
+let state: State = { display: null, operation: null, memory: null, lastInput: null, theme: "light" }
 
 const refreshDisplay = () => {
   // 1. read display state
@@ -41,15 +42,6 @@ const refreshDisplay = () => {
   } else {
     displayEl.innerText = state.display
   }
-  if (state.display === "8008135" || state.display === "80085") {
-    console.log("Nice one")
-    displayEl.style.color = "transparent";
-    displayEl.style.textShadow = "0 0 6px #000";
-  } else {
-    displayEl.style.color = "inherit";
-    displayEl.style.textShadow = "none";
-  }
-  console.log(state)
 }
 
 const clear = () => {
@@ -78,6 +70,7 @@ const addChar = (char: string) => {
 }
 
 const backspace = () => {
+  console.log("backspace")
   if (state.display === null || state.display.length === 1) {
     state.display = null
   } else {
@@ -92,7 +85,7 @@ const addOperator = (operator: Operator) => {
   memory = Number(state.display)
   lastInput = Number(state.display)
   display = null
-  state = { operation, display, memory, lastInput }
+  state = { ...state, operation, display, memory, lastInput }
 }
 
 const evaluate = () => {
@@ -101,7 +94,7 @@ const evaluate = () => {
   let secondNumber: number;
   if (state.display !== null) {
     secondNumber = Number(state.display)
-  } else if (state.lastInput !== null){
+  } else if (state.lastInput !== null) {
     secondNumber = state.lastInput
   } else {
     return
@@ -138,6 +131,26 @@ const evaluate = () => {
 
 const changeTheme = (theme: string) => {
 
+  const calculator = document.querySelector<HTMLDivElement>(".calculator")
+  if (!calculator) throw new Error("Calculator not found")
+  switch (theme) {
+    case "dark":
+      state = { ...state, theme: "dark" }
+        calculator.classList.remove("theme-light")
+        calculator.classList.add("theme-dark")
+      break;
+    case "light":
+      state = { ...state, theme: "light" }
+        calculator.classList.add("theme-light")
+        calculator.classList.remove("theme-dark")
+      break;
+
+    default:
+      break;
+  }
+  // while (state.theme === "dark") {
+  //   console.log("dsadjsakl")
+  // }
 }
 
 // getting buttons
@@ -170,14 +183,14 @@ const button_debug = document.querySelector<HTMLButtonElement>(".debug")
 
 // validate buttons exist
 if (!button_1 || !button_2 || !button_3 || !button_4 || !button_5
-  || !button_6 || !button_7 || !button_8 || !button_9 || !button_0 
+  || !button_6 || !button_7 || !button_8 || !button_9 || !button_0
   || !button_pi) {
   throw new Error("Oopsie, a number button wasn't found")
 }
 
 if (!button_period || !button_add || !button_subtract || !button_multiply
-  || !button_divide || !button_power || !button_clear || !button_backspace 
-  || !button_evaluate || !button_theme1 || !button_theme2|| !button_theme3) {
+  || !button_divide || !button_power || !button_clear || !button_backspace
+  || !button_evaluate || !button_theme1 || !button_theme2 || !button_theme3) {
   throw new Error("Oopsie, an operator button wasn't found")
 }
 
@@ -199,12 +212,13 @@ button_subtract.addEventListener("click", () => { addOperator("subtract") })
 button_multiply.addEventListener("click", () => { addOperator("multiply") })
 button_divide.addEventListener("click", () => { addOperator("divide") })
 button_power.addEventListener("click", () => { addOperator("power") })
-button_theme1.addEventListener("click", () => {})
-button_theme2.addEventListener("click", () => {})
-button_theme3.addEventListener("click", () => {})
+button_theme1.addEventListener("click", () => { changeTheme("light") })
+button_theme2.addEventListener("click", () => { changeTheme("dark") })
+button_theme3.addEventListener("click", () => { changeTheme("light") })
 button_clear.addEventListener("click", clear)
 button_backspace.addEventListener("click", backspace)
 button_evaluate.addEventListener("click", evaluate)
 button_debug?.addEventListener("click", () => { console.log(state) })
 
 refreshDisplay()
+

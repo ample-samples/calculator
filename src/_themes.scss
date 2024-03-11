@@ -1,0 +1,21 @@
+// Dark
+.theme-dark {
+  * {
+    color: #eee;
+    background-color: #333
+  }
+
+  .calculator__display {
+    color: #eee;
+  }
+
+  .calculator__button-panel {
+    .calculator__button {
+      border: 1px solid white;
+    }
+  }
+}
+
+
+// Light
+// Disco?

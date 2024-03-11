@@ -1,3 +1,14 @@
+.theme-dark * {
+  color: #eee;
+  background-color: #333;
+}
+.theme-dark .calculator__display {
+  color: #eee;
+}
+.theme-dark .calculator__button-panel .calculator__button {
+  border: 1px solid white;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -8,7 +19,6 @@
   max-width: 90vw;
   min-width: 180px;
   display: inline-block;
-  color: black;
   margin: 5px;
   padding: 2px;
   border: 1px solid black;

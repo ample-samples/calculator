@@ -1,3 +1,5 @@
+@use "./themes";
+
 * {
   margin: 0;
   padding: 0;
@@ -8,7 +10,6 @@
   max-width: 90vw;
   min-width: 180px;
   display: inline-block;
-  color: black;
   margin: 5px;
   padding: 2px;
   border: 1px solid black;
