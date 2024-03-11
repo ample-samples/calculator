@@ -17,6 +17,7 @@
 */
 
 type Operator = "add" | "subtract" | "multiply" | "divide" | "power" | null
+type mathFunc = "log" | "cos" | "sin"
 
 type State = {
   display: string | null;
@@ -69,13 +70,8 @@ const addChar = (char: string) => {
     }
     state.lastInput = Number(state.display)
   } else {
-    switch (char) {
-      case "π":
-        state = { ...state, display: Math.PI.toString() }
-        break;
-
-      default:
-        break;
+    if (char === "π") {
+      state = { ...state, display: Math.PI.toString() }
     }
   }
   refreshDisplay()
@@ -140,6 +136,10 @@ const evaluate = () => {
   state.display = null
 }
 
+const changeTheme = (theme: string) => {
+
+}
+
 // getting buttons
 const button_1 = document.querySelector<HTMLButtonElement>(".calculator__button--button-1")
 const button_2 = document.querySelector<HTMLButtonElement>(".calculator__button--button-2")
@@ -161,9 +161,9 @@ const button_clear = document.querySelector<HTMLButtonElement>(".calculator__but
 const button_backspace = document.querySelector<HTMLButtonElement>(".calculator__button--button-backspace")
 const button_evaluate = document.querySelector<HTMLButtonElement>(".calculator__button--button-evaluate")
 const button_pi = document.querySelector<HTMLButtonElement>(".calculator__button--button-pi")
-const button_log = document.querySelector<HTMLButtonElement>(".calculator__button--button-log")
-const button_cos = document.querySelector<HTMLButtonElement>(".calculator__button--button-cos")
-const button_sin = document.querySelector<HTMLButtonElement>(".calculator__button--button-sin")
+const button_theme1 = document.querySelector<HTMLButtonElement>(".calculator__button--button-theme1")
+const button_theme2 = document.querySelector<HTMLButtonElement>(".calculator__button--button-theme2")
+const button_theme3 = document.querySelector<HTMLButtonElement>(".calculator__button--button-theme3")
 
 
 const button_debug = document.querySelector<HTMLButtonElement>(".debug")
@@ -177,7 +177,7 @@ if (!button_1 || !button_2 || !button_3 || !button_4 || !button_5
 
 if (!button_period || !button_add || !button_subtract || !button_multiply
   || !button_divide || !button_power || !button_clear || !button_backspace 
-  || !button_evaluate || !button_log || !button_cos || !button_sin) {
+  || !button_evaluate || !button_theme1 || !button_theme2|| !button_theme3) {
   throw new Error("Oopsie, an operator button wasn't found")
 }
 
@@ -192,13 +192,16 @@ button_7.addEventListener("click", () => { addChar("7") })
 button_8.addEventListener("click", () => { addChar("8") })
 button_9.addEventListener("click", () => { addChar("9") })
 button_0.addEventListener("click", () => { addChar("0") })
+button_period.addEventListener("click", () => { addChar(".") })
 button_pi.addEventListener("click", () => { addChar("π") })
 button_add.addEventListener("click", () => { addOperator("add") })
 button_subtract.addEventListener("click", () => { addOperator("subtract") })
 button_multiply.addEventListener("click", () => { addOperator("multiply") })
 button_divide.addEventListener("click", () => { addOperator("divide") })
 button_power.addEventListener("click", () => { addOperator("power") })
-button_period.addEventListener("click", () => { addChar(".") })
+button_theme1.addEventListener("click", () => {})
+button_theme2.addEventListener("click", () => {})
+button_theme3.addEventListener("click", () => {})
 button_clear.addEventListener("click", clear)
 button_backspace.addEventListener("click", backspace)
 button_evaluate.addEventListener("click", evaluate)
