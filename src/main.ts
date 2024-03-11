@@ -16,7 +16,7 @@
  * - 
 */
 
-type Operator = "add" | "subtract" | "multiply" | "divide" | null
+type Operator = "add" | "subtract" | "multiply" | "divide" | "power" | null
 
 type State = {
   display: string | null;
@@ -66,7 +66,7 @@ const addChar = (char: string) => {
   } else {
     state = { ...state, display: char }
   }
-	state.lastInput = Number(state.display)
+  state.lastInput = Number(state.display)
   refreshDisplay()
 }
 
@@ -80,12 +80,12 @@ const backspace = () => {
 }
 
 const addOperator = (operator: Operator) => {
-	let { operation, display, memory, lastInput } = state
+  let { operation, display, memory, lastInput } = state
   operation = operator
   memory = Number(state.display)
   lastInput = Number(state.display)
   display = null
-	state = { operation, display, memory, lastInput }
+  state = { operation, display, memory, lastInput }
 }
 
 const evaluate = () => {
@@ -106,6 +106,10 @@ const evaluate = () => {
 
       case "add":
         state = { ...state, display: (state.memory + Number(state.display)).toString() }
+        break;
+
+      case "power":
+        state = { ...state, display: (state.memory ** Number(state.display)).toString() }
         break;
 
       default:
@@ -129,10 +133,14 @@ const evaluate = () => {
         state = { ...state, display: (state.memory + state.lastInput).toString() }
         break;
 
+      case "power":
+        state = { ...state, display: (state.memory ** state.lastInput).toString() }
+        break;
+
       default:
         break;
     }
-	}
+  }
   state.memory = Number(state.display)
   refreshDisplay()
   state.display = null
@@ -154,10 +162,11 @@ const button_add = document.querySelector<HTMLButtonElement>(".calculator__butto
 const button_subtract = document.querySelector<HTMLButtonElement>(".calculator__button--button-subtract")
 const button_multiply = document.querySelector<HTMLButtonElement>(".calculator__button--button-multiply")
 const button_divide = document.querySelector<HTMLButtonElement>(".calculator__button--button-divide")
+const button_power = document.querySelector<HTMLButtonElement>(".calculator__button--button-power")
 const button_clear = document.querySelector<HTMLButtonElement>(".calculator__button--button-clear")
 const button_backspace = document.querySelector<HTMLButtonElement>(".calculator__button--button-backspace")
 const button_evaluate = document.querySelector<HTMLButtonElement>(".calculator__button--button-evaluate")
-const button_debug = document.querySelector<HTMLButtonElement>(".calculator__button--button-debug")
+const button_debug = document.querySelector<HTMLButtonElement>(".debug")
 
 // validate buttons exist
 if (!button_1 || !button_2 || !button_3 || !button_4 || !button_5
@@ -166,7 +175,7 @@ if (!button_1 || !button_2 || !button_3 || !button_4 || !button_5
 }
 
 if (!button_period || !button_add || !button_subtract || !button_multiply
-  || !button_divide || !button_clear || !button_backspace || !button_evaluate) {
+  || !button_divide || !button_power || !button_clear || !button_backspace || !button_evaluate) {
   throw new Error("Oopsie, an operator button wasn't found")
 }
 
@@ -185,6 +194,7 @@ button_add.addEventListener("click", () => { addOperator("add") })
 button_subtract.addEventListener("click", () => { addOperator("subtract") })
 button_multiply.addEventListener("click", () => { addOperator("multiply") })
 button_divide.addEventListener("click", () => { addOperator("divide") })
+button_power.addEventListener("click", () => { addOperator("power") })
 button_period.addEventListener("click", () => { addChar(".") })
 button_clear.addEventListener("click", clear)
 button_backspace.addEventListener("click", backspace)

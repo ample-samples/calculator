@@ -6,7 +6,7 @@
 
 .calculator {
   max-width: 90vw;
-  min-width: 110px;
+  min-width: 180px;
   display: inline-block;
   color: black;
   margin: 5px;
@@ -36,6 +36,7 @@
 .calculator .calculator__button-panel .calculator__button {
   width: 100%;
   height: 100%;
+  font-size: 40px;
 }
 .calculator .calculator__button-panel .calculator__button--button-0 {
   grid-area: "0";
