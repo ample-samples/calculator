@@ -121,6 +121,7 @@ const evaluate = () => {
       break;
 
     default:
+      throw new Error("Operation not supported")
       break;
   }
   state.memory = Number(state.display)
