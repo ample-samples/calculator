@@ -6,7 +6,9 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "homepage": "https://ample-samples.github.io/calculator",
+    "author": "Todd"
   },
   "devDependencies": {
     "gh-pages": "^6.1.1",
