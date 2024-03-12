@@ -50,3 +50,28 @@
   }
 }
 
+@keyframes borderHueRotate {
+  0% {
+    border-color: cyan;
+  }
+
+  20% {
+    border-color: purple;
+  }
+
+  40% {
+    border-color: yellow;
+  }
+
+  60% {
+    border-color: lightblue;
+  }
+
+  80% {
+    border-color: lime;
+  }
+
+  100% {
+    border-color: cyan;
+  }
+}

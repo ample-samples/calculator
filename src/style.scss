@@ -19,6 +19,9 @@ body {
   width: 160px;
   margin: 0 auto;
   display: none;
+  border-radius: 50%;
+  border: 6px solid;
+  animation: borderHueRotate 2s linear infinite;
 }
 
 .calculator {
