@@ -128,18 +128,21 @@ const evaluate = () => {
   refreshDisplay()
   state.display = null
 }
+const calculator = document.querySelector<HTMLDivElement>(".calculator")
+if (!calculator) throw new Error("Calculator not found")
+const audio = document.querySelector<HTMLAudioElement>("audio");
+if (!audio) throw new Error("Audio not found")
+const discoBall = document.querySelector<HTMLImageElement>("#disco-ball")
+if (!discoBall) throw new Error("Groove not found")
 
 const changeTheme = (theme: string) => {
-  const calculator = document.querySelector<HTMLDivElement>(".calculator")
-  if (!calculator) throw new Error("Calculator not found")
-  const audio = document.querySelector<HTMLAudioElement>("audio");
-  if (!audio) throw new Error("Audio not found")
   switch (theme) {
     case "dark":
       state = { ...state, theme: "dark" }
         calculator.classList.remove("theme-disco")
         calculator.classList.remove("theme-light")
         calculator.classList.add("theme-dark")
+      discoBall.style.display = "none"
       audio.pause()
       break;
     case "disco":
@@ -147,6 +150,7 @@ const changeTheme = (theme: string) => {
         calculator.classList.add("theme-disco")
         calculator.classList.remove("theme-light")
         calculator.classList.remove("theme-dark")
+      discoBall.style.display = "block"
         audio.play()
       break;
     case "light":
@@ -154,6 +158,7 @@ const changeTheme = (theme: string) => {
         calculator.classList.remove("theme-disco")
         calculator.classList.add("theme-light")
         calculator.classList.remove("theme-dark")
+      discoBall.style.display = "none"
       audio.pause()
       break;
 
