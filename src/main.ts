@@ -151,6 +151,7 @@ const changeTheme = (theme: string) => {
         calculator.classList.remove("theme-light")
         calculator.classList.remove("theme-dark")
       discoBall.style.display = "block"
+      audio.currentTime = 0
         audio.play()
       break;
     case "light":
