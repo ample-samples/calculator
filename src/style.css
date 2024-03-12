@@ -1,16 +1,52 @@
 .theme-dark {
   background-color: #444;
 }
-.theme-dark * {
-  color: #eee;
-}
-.theme-dark .calculator__display {
-  background-color: #333;
-}
 .theme-dark .calculator__button-panel .calculator__button {
+  color: #eee;
   border: 1px solid #222;
   background-color: #333;
   border-radius: 2px;
+}
+
+.theme-light .calculator__button-panel .calculator__button--button-clear, .theme-light .calculator__button-panel .calculator__button--button-backspace {
+  background-color: orange;
+}
+
+@keyframes disco {
+  0% {
+    background-color: purple;
+  }
+  20% {
+    background-color: yellow;
+  }
+  40% {
+    background-color: purple;
+  }
+  80% {
+    background-color: lime;
+  }
+  100% {
+    background-color: cyan;
+  }
+}
+.theme-disco .calculator__display {
+  animation: disco 0.6s step-start infinite;
+}
+.theme-disco #disco-ball {
+  height: 100px;
+  top: 0px;
+  left: 20px;
+  margin-bottom: -120px;
+  display: none;
+  position: relative;
+}
+.theme-disco .calculator__button-panel .calculator__button:nth-child(2n-1) {
+  animation: disco 2s step-start infinite;
+  animation-delay: 0.8s;
+}
+.theme-disco .calculator__button-panel .calculator__button:nth-child(2n) {
+  background-color: lime;
+  animation: disco 2s step-start infinite;
 }
 
 * {
@@ -31,12 +67,20 @@ body {
   padding: 2px;
   border: 1px solid black;
   border-radius: 2px;
+  background-color: #555;
+}
+.calculator .calculator__disco-ball {
+  top: -30px;
+  margin-bottom: -30px;
+  display: none;
 }
 .calculator .calculator__display {
   font-family: "Seven Segment", sans-serif;
+  background-color: #D5E2E2;
   font-size: 21px;
   padding: 0 2px;
   width: 100%;
+  max-width: 180px;
   height: 2rem;
   line-height: 2rem;
   border: 1px solid #222;
@@ -49,7 +93,7 @@ body {
 }
 .calculator .calculator__button-panel {
   display: grid;
-  grid-gap: 1px;
+  grid-gap: 2px;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
   grid-template-areas: "1 2 3 add pi" "4 5 6 subtract t1" "7 8 9 multiply t2" "_ 0 period divide t3" "clear evaluate backspace backspace backspace";
@@ -59,7 +103,7 @@ body {
   height: 100%;
   font-size: 20px;
   border: 1px solid #222;
-  border-radius: 2px;
+  border-radius: 6px;
 }
 .calculator .calculator__button-panel .calculator__button--button-theme1 {
   grid-area: t1;

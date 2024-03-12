@@ -15,6 +15,7 @@
  * - Trig functions
  * - 
 */
+const discoMusic = new Audio('./assets/lostinmusic.mp3');
 
 type Operator = "add" | "subtract" | "multiply" | "divide" | "power" | null
 type mathFunc = "log" | "cos" | "sin"
@@ -24,7 +25,7 @@ type State = {
   operation: Operator;
   memory: number | null;
   lastInput: number | null;
-  theme: "dark" | "light" | null
+  theme: "dark" | "light" | "disco" | null
 }
 
 // init globals
@@ -132,16 +133,31 @@ const evaluate = () => {
 const changeTheme = (theme: string) => {
   const calculator = document.querySelector<HTMLDivElement>(".calculator")
   if (!calculator) throw new Error("Calculator not found")
+  const audio = document.querySelector<HTMLAudioElement>("audio");
+  if (!audio) throw new Error("Audio not found")
   switch (theme) {
     case "dark":
       state = { ...state, theme: "dark" }
+        calculator.classList.remove("theme-disco")
         calculator.classList.remove("theme-light")
         calculator.classList.add("theme-dark")
+      audio.pause()
+      break;
+    case "disco":
+      state = { ...state, theme: "disco" }
+        calculator.classList.add("theme-disco")
+        calculator.classList.remove("theme-light")
+        calculator.classList.remove("theme-dark")
+        audio.play()
+
+        // const playPromise = discoMusic.play()
       break;
     case "light":
       state = { ...state, theme: "light" }
+        calculator.classList.remove("theme-disco")
         calculator.classList.add("theme-light")
         calculator.classList.remove("theme-dark")
+      audio.pause()
       break;
 
     default:
@@ -151,6 +167,8 @@ const changeTheme = (theme: string) => {
   //   console.log("dsadjsakl")
   // }
 }
+
+
 
 // getting buttons
 const button_1 = document.querySelector<HTMLButtonElement>(".calculator__button--button-1")
@@ -213,7 +231,7 @@ button_divide.addEventListener("click", () => { addOperator("divide") })
 button_power.addEventListener("click", () => { addOperator("power") })
 button_theme1.addEventListener("click", () => { changeTheme("light") })
 button_theme2.addEventListener("click", () => { changeTheme("dark") })
-button_theme3.addEventListener("click", () => { changeTheme("light") })
+button_theme3.addEventListener("click", () => { changeTheme("disco") })
 button_clear.addEventListener("click", clear)
 button_backspace.addEventListener("click", backspace)
 button_evaluate.addEventListener("click", evaluate)

@@ -18,12 +18,21 @@ body {
   padding: 2px;
   border: 1px solid black;
   border-radius: 2px;
+  background-color: #555;
+
+  .calculator__disco-ball {
+        top: -30px; 
+    margin-bottom: -30px;
+    display: none;
+  }
 
   .calculator__display {
     font-family: 'Seven Segment', sans-serif;
+    background-color: #D5E2E2;
     font-size: 21px;
     padding: 0 2px;
     width: 100%;
+    max-width: 180px;
     height: 2rem;
     line-height: 2rem;
     border: 1px solid #222;
@@ -37,7 +46,7 @@ body {
 
   .calculator__button-panel {
     display: grid;
-    grid-gap: 1px;
+    grid-gap: 2px;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
     grid-template-areas:
@@ -52,7 +61,7 @@ body {
       height: 100%;
       font-size: 20px;
       border: 1px solid #222;
-      border-radius: 2px;
+      border-radius: 6px;
 
       &--button-theme1 {
         grid-area: t1
