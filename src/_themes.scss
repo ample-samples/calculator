@@ -1,3 +1,5 @@
+@use "./animations";
+
 // Dark
 .theme-dark {
   background-color: #444;
@@ -27,48 +29,24 @@
 }
 
 // Disco?
-
-@keyframes disco {
-  0% {
-    background-color: purple;
-  }
-
-  20% {
-    background-color: yellow;
-  }
-
-  40% {
-    background-color: purple;
-  }
-
-  80% {
-    background-color: lime;
-  }
-
-  100% {
-    background-color: cyan;
-  }
-}
-
 .theme-disco {
-  .calculator__display {
-    animation: disco 0.6s step-start infinite;
-  }
-
   #disco-ball {
     height: 100px;
     top: 0px;
     left: 20px;
-    margin-bottom: -120px;
-    display: none;
+    margin-bottom: -100px;
+    display: inline;
     position: relative;
+  }
+
+  .calculator__display {
+    animation: disco 0.6s step-start infinite;
   }
 
   .calculator__button-panel {
     .calculator__button {
       &:nth-child(2n-1) {
-        animation: disco 2s step-start infinite;
-        animation-delay: 0.8s;
+        animation: disco2 2s step-start infinite;
       }
 
       &:nth-child(2n) {

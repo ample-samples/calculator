@@ -1,3 +1,43 @@
+@keyframes disco2 {
+  0% {
+    background-color: yellow;
+  }
+  20% {
+    background-color: lightblue;
+  }
+  40% {
+    background-color: lime;
+  }
+  60% {
+    background-color: cyan;
+  }
+  80% {
+    background-color: red;
+  }
+  100% {
+    background-color: purple;
+  }
+}
+@keyframes disco {
+  0% {
+    background-color: red;
+  }
+  20% {
+    background-color: purple;
+  }
+  40% {
+    background-color: yellow;
+  }
+  60% {
+    background-color: lightblue;
+  }
+  80% {
+    background-color: lime;
+  }
+  100% {
+    background-color: cyan;
+  }
+}
 .theme-dark {
   background-color: #444;
 }
@@ -12,37 +52,19 @@
   background-color: orange;
 }
 
-@keyframes disco {
-  0% {
-    background-color: purple;
-  }
-  20% {
-    background-color: yellow;
-  }
-  40% {
-    background-color: purple;
-  }
-  80% {
-    background-color: lime;
-  }
-  100% {
-    background-color: cyan;
-  }
-}
-.theme-disco .calculator__display {
-  animation: disco 0.6s step-start infinite;
-}
 .theme-disco #disco-ball {
   height: 100px;
   top: 0px;
   left: 20px;
-  margin-bottom: -120px;
-  display: none;
+  margin-bottom: -100px;
+  display: inline;
   position: relative;
 }
+.theme-disco .calculator__display {
+  animation: disco 0.6s step-start infinite;
+}
 .theme-disco .calculator__button-panel .calculator__button:nth-child(2n-1) {
-  animation: disco 2s step-start infinite;
-  animation-delay: 0.8s;
+  animation: disco2 2s step-start infinite;
 }
 .theme-disco .calculator__button-panel .calculator__button:nth-child(2n) {
   background-color: lime;
@@ -56,23 +78,25 @@
 }
 
 body {
-  margin: 0 auto;
+  display: flex;
+  justify-items: center;
+}
+
+.calculator__disco-ball {
+  top: -30px;
+  margin-bottom: -30px;
+  display: none;
 }
 
 .calculator {
   max-width: 90vw;
   min-width: 180px;
   display: inline-block;
-  margin: 5px;
+  margin: 10vh auto 0 auto;
   padding: 2px;
   border: 1px solid black;
   border-radius: 2px;
   background-color: #555;
-}
-.calculator .calculator__disco-ball {
-  top: -30px;
-  margin-bottom: -30px;
-  display: none;
 }
 .calculator .calculator__display {
   font-family: "Seven Segment", sans-serif;

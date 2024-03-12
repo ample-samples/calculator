@@ -18,7 +18,6 @@
 const discoMusic = new Audio('./assets/lostinmusic.mp3');
 
 type Operator = "add" | "subtract" | "multiply" | "divide" | "power" | null
-type mathFunc = "log" | "cos" | "sin"
 
 type State = {
   display: string | null;
@@ -149,8 +148,6 @@ const changeTheme = (theme: string) => {
         calculator.classList.remove("theme-light")
         calculator.classList.remove("theme-dark")
         audio.play()
-
-        // const playPromise = discoMusic.play()
       break;
     case "light":
       state = { ...state, theme: "light" }
