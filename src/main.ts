@@ -15,8 +15,6 @@
  * - Trig functions
  * - 
 */
-const discoMusic = new Audio('./assets/lostinmusic.mp3');
-
 type Operator = "add" | "subtract" | "multiply" | "divide" | "power" | null
 
 type State = {
