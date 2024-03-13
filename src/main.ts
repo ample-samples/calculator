@@ -25,7 +25,6 @@ type State = {
   theme: "dark" | "light" | "disco" | null
 }
 
-// init globals
 const displayEl = document.querySelector<HTMLElement>('#display')
 if (!displayEl) throw new Error("Oopsie, display element not found")
 
