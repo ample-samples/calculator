@@ -29,7 +29,7 @@ type State = {
 
 // init globals
 const displayEl = document.querySelector<HTMLElement>('#display')
-if (!displayEl) throw new Error("Oopsie")
+if (!displayEl) throw new Error("Oopsie, display element not found")
 
 // init state
 let state: State = { display: null, operation: null, memory: null, lastInput: null, theme: "light" }
@@ -87,7 +87,8 @@ const addOperator = (operator: Operator) => {
 }
 
 const evaluate = () => {
-  if (!state.memory) return null;
+  if (!state.memory) return;
+
   const firstNumber: number = state.memory;
   let secondNumber: number;
   if (state.display !== null) {
@@ -97,6 +98,7 @@ const evaluate = () => {
   } else {
     return
   }
+
   switch (state.operation) {
     case "divide":
       state = { ...state, display: (firstNumber / secondNumber).toString() }
@@ -121,10 +123,12 @@ const evaluate = () => {
     default:
       throw new Error("Operation not supported")
   }
+
   state.memory = Number(state.display)
   refreshDisplay()
   state.display = null
 }
+
 const calculator = document.querySelector<HTMLDivElement>(".calculator")
 if (!calculator) throw new Error("Calculator not found")
 const audio = document.querySelector<HTMLAudioElement>("audio");
