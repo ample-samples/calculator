@@ -35,8 +35,6 @@ if (!displayEl) throw new Error("Oopsie")
 let state: State = { display: null, operation: null, memory: null, lastInput: null, theme: "light" }
 
 const refreshDisplay = () => {
-  // 1. read display state
-  // 2. write to display element
   if (!state.display) {
     displayEl.innerText = "0"
   } else {
@@ -122,7 +120,6 @@ const evaluate = () => {
 
     default:
       throw new Error("Operation not supported")
-      break;
   }
   state.memory = Number(state.display)
   refreshDisplay()
@@ -166,9 +163,6 @@ const changeTheme = (theme: string) => {
     default:
       break;
   }
-  // while (state.theme === "dark") {
-  //   console.log("dsadjsakl")
-  // }
 }
 
 
@@ -199,9 +193,6 @@ const button_theme2 = document.querySelector<HTMLButtonElement>(".calculator__bu
 const button_theme3 = document.querySelector<HTMLButtonElement>(".calculator__button--button-theme3")
 
 
-const button_debug = document.querySelector<HTMLButtonElement>(".debug")
-
-// validate buttons exist
 if (!button_1 || !button_2 || !button_3 || !button_4 || !button_5
   || !button_6 || !button_7 || !button_8 || !button_9 || !button_0
   || !button_pi) {
@@ -215,7 +206,7 @@ if (!button_period || !button_add || !button_subtract || !button_multiply
 }
 
 // add event listeners
-button_1.addEventListener("click", () => addChar("1"))
+button_1.addEventListener("click", () => { addChar("1") })
 button_2.addEventListener("click", () => { addChar("2") })
 button_3.addEventListener("click", () => { addChar("3") })
 button_4.addEventListener("click", () => { addChar("4") })
@@ -238,7 +229,5 @@ button_theme3.addEventListener("click", () => { changeTheme("disco") })
 button_clear.addEventListener("click", clear)
 button_backspace.addEventListener("click", backspace)
 button_evaluate.addEventListener("click", evaluate)
-button_debug?.addEventListener("click", () => { console.log(state) })
 
 refreshDisplay()
-
